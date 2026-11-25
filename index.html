@@ -1,0 +1,2253 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Education Research Navigator</title>
+
+<style>
+:root {
+  --primary: #244b63;
+  --accent: #168477;
+  --background: #f1f5f8;
+  --text: #243747;
+  --muted: #687b89;
+  --border: #dce5eb;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: "Noto Sans JP", "Hiragino Sans",
+    "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.8;
+}
+
+header {
+  background: linear-gradient(125deg, #18384e, #246c78);
+  color: white;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: clamp(24px, 4vw, 40px);
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+header p {
+  margin: 8px 0;
+  opacity: 0.9;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 3px;
+}
+
+.container {
+  max-width: 1350px;
+  margin: 28px auto;
+  padding: 0 20px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.panel {
+  background: white;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 12px #24374708;
+}
+
+h2 {
+  font-size: 20px;
+  margin-top: 0;
+}
+
+h3 {
+  font-size: 16px;
+  margin: 0 0 10px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 14px 0 6px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #16847755;
+}
+
+button, .link-button {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+  color: var(--text);
+  background: white;
+  font: inherit;
+  font-size: 13px;
+  text-decoration: none;
+  transition: 0.15s;
+}
+
+button:hover, .link-button:hover {
+  background: #e8f3f3;
+  border-color: var(--accent);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  font-weight: bold;
+}
+
+.primary:hover {
+  background: #106e64;
+  color: white;
+}
+
+.full {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.category {
+  width: 100%;
+  text-align: left;
+  margin: 3px 0;
+  border: none;
+  background: #f5f8fa;
+}
+
+.category:hover, .category.active {
+  background: #dcefeb;
+  color: #106e64;
+}
+
+.search-row {
+  display: flex;
+  gap: 10px;
+}
+
+.search-row input {
+  flex: 1;
+  min-width: 0;
+  font-size: 16px;
+  padding: 15px;
+}
+
+.search-row button {
+  min-width: 90px;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.toolbar, .actions, .tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.toolbar {
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.tabs {
+  margin: 20px 0;
+}
+
+.tab.active {
+  color: white;
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.paper {
+  background: white;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 18px;
+  box-shadow: 0 3px 12px #24374708;
+}
+
+.paper h2 {
+  font-size: 19px;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+.paper h2 a {
+  text-decoration: none;
+  color: var(--primary);
+}
+
+.paper h2 a:hover {
+  text-decoration: underline;
+}
+
+.paper-meta {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 8px 0 18px;
+  overflow-wrap: anywhere;
+}
+
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #edf2f6;
+  color: #456175;
+  font-size: 11px;
+  margin: 2px 5px 2px 0;
+}
+
+.tag.oa {
+  background: #def2e9;
+  color: #176644;
+}
+
+.summary {
+  background: #f5f8fa;
+  padding: 18px;
+  border-radius: 9px;
+  margin: 16px 0;
+  overflow-wrap: anywhere;
+}
+
+.summary p {
+  margin: 8px 0;
+  font-size: 14px;
+  white-space: pre-wrap;
+}
+
+.small {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: var(--accent);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.stat {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.stat strong {
+  font-size: 30px;
+  color: var(--primary);
+  display: block;
+}
+
+.stat span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--muted);
+  background: white;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+}
+
+.notice {
+  background: #fff8e8;
+  border: 1px solid #e9d9ae;
+  color: #806628;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 13px;
+  white-space: pre-wrap;
+  margin: 12px 0;
+}
+
+.status {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 12px;
+  white-space: pre-wrap;
+}
+
+.saved-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 6px 0;
+}
+
+.saved-item button:first-child {
+  flex: 1;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.saved {
+  color: #a87914;
+  background: #fff7df;
+}
+
+.notes {
+  margin-top: 14px;
+}
+
+details {
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+summary {
+  cursor: pointer;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+details p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.external-links a {
+  display: block;
+  margin: 8px 0;
+  font-size: 13px;
+  color: var(--primary);
+}
+
+.loading {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #dce5eb;
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 15px auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+#toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #18384e;
+  color: white;
+  padding: 14px 22px;
+  border-radius: 9px;
+  display: none;
+  z-index: 100;
+  max-width: 85vw;
+}
+
+footer {
+  text-align: center;
+  padding: 35px 20px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+  }
+
+  .panel, .paper {
+    padding: 18px;
+  }
+
+  .stat {
+    padding: 12px 5px;
+  }
+
+  .stat strong {
+    font-size: 24px;
+  }
+
+  .container {
+    padding: 0 12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="eyebrow">EDUCATION × PSYCHOLOGY × RESEARCH</div>
+  <h1>Education Research Navigator</h1>
+  <p>教育・心理学研究論文検索システム</p>
+  <p style="font-size:13px">
+    先行研究を探す。知見を蓄積する。研究につなげる。
+  </p>
+</header>
+
+<div class="container">
+
+  <div class="stats">
+    <div class="stat">
+      <strong id="resultCount">0</strong>
+      <span>取得した論文数</span>
+    </div>
+    <div class="stat">
+      <strong id="favoriteCount">0</strong>
+      <span>保存した論文</span>
+    </div>
+    <div class="stat">
+      <strong id="oaCount">0</strong>
+      <span>オープンアクセス</span>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <aside>
+
+      <div class="panel">
+        <h3>研究分野から探す</h3>
+        <div class="small">分野を選択すると検索を開始します。</div>
+        <div id="categories"></div>
+      </div>
+
+      <div class="panel">
+        <h3>マイ研究テーマ</h3>
+        <div class="small">
+          よく検索する研究テーマを保存できます。
+        </div>
+        <input id="customTopic"
+          placeholder="例：中学生の援助希求">
+        <button class="primary full"
+          onclick="addTopic()">＋ テーマを登録</button>
+        <div id="savedTopics"></div>
+      </div>
+
+      <div class="panel external-links">
+        <h3>外部論文データベース</h3>
+        <a id="ciniiLink" href="https://cir.nii.ac.jp/"
+          target="_blank" rel="noopener noreferrer">
+          CiNii Research ↗
+        </a>
+        <a id="jstageLink" href="https://www.jstage.jst.go.jp/"
+          target="_blank" rel="noopener noreferrer">
+          J-STAGE ↗
+        </a>
+        <a id="scholarLink" href="https://scholar.google.com/"
+          target="_blank" rel="noopener noreferrer">
+          Google Scholar ↗
+        </a>
+        <a id="ericLink" href="https://eric.ed.gov/"
+          target="_blank" rel="noopener noreferrer">
+          ERIC ↗
+        </a>
+        <a id="pubmedLink" href="https://pubmed.ncbi.nlm.nih.gov/"
+          target="_blank" rel="noopener noreferrer">
+          PubMed ↗
+        </a>
+        <a href="https://openalex.org/"
+          target="_blank" rel="noopener noreferrer">
+          OpenAlex ↗
+        </a>
+      </div>
+
+      <div class="panel">
+        <h3>API・検索設定</h3>
+
+        <label for="openalexKey">
+          OpenAlex APIキー（任意）
+        </label>
+        <input type="password" id="openalexKey"
+          autocomplete="off" placeholder="APIキー">
+
+        <p class="small">
+          <a href="https://openalex.org/settings/api"
+            target="_blank" rel="noopener noreferrer">
+            APIキーの取得
+          </a>
+        </p>
+
+        <label for="ciniiKey">
+          CiNii Application ID
+        </label>
+        <input type="password" id="ciniiKey"
+          autocomplete="off" placeholder="Application ID">
+
+        <p class="small">
+          <a href="https://support.nii.ac.jp/ja/cinii/api/developer"
+            target="_blank" rel="noopener noreferrer">
+            CiNii API利用登録
+          </a>
+        </p>
+
+        <label for="refreshInterval">
+          ページ表示中の自動更新
+        </label>
+        <select id="refreshInterval"
+          onchange="configureAutoRefresh()">
+          <option value="0">自動更新しない</option>
+          <option value="30">30分ごと</option>
+          <option value="60">60分ごと</option>
+          <option value="180">3時間ごと</option>
+        </select>
+
+        <p class="small">
+          APIキーは保存せず、このページを閉じるまで使用します。
+          自動更新はページを開いている間のみ動作します。
+        </p>
+      </div>
+
+    </aside>
+
+    <main>
+
+      <div class="panel">
+        <h2>研究論文を検索</h2>
+
+        <form id="searchForm">
+
+          <div class="search-row">
+            <input id="keyword" type="search"
+              placeholder="例：ストレスマネジメント教育 中学生"
+              required>
+            <button id="searchButton" class="primary"
+              type="submit">検索</button>
+          </div>
+
+          <div class="filters">
+
+            <div>
+              <label for="source">データベース</label>
+              <select id="source">
+                <option value="both">国内・海外（両方）</option>
+                <option value="cinii">CiNii Research</option>
+                <option value="openalex">OpenAlex</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="language">論文の言語</label>
+              <select id="language">
+                <option value="all">すべて</option>
+                <option value="ja">日本語（OpenAlex）</option>
+                <option value="en">英語（OpenAlex）</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="sort">表示順</label>
+              <select id="sort">
+                <option value="relevance">関連度順</option>
+                <option value="newest">新着順</option>
+                <option value="citations">被引用数順</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="fromYear">発行年（開始）</label>
+              <input id="fromYear" type="number"
+                min="1800" max="2100" value="2020">
+            </div>
+
+            <div>
+              <label for="toYear">発行年（終了）</label>
+              <input id="toYear" type="number"
+                min="1800" max="2100">
+            </div>
+
+            <div>
+              <label for="limit">取得件数（各DB）</label>
+              <select id="limit">
+                <option value="10">10件</option>
+                <option value="20" selected>20件</option>
+                <option value="50">50件</option>
+                <option value="100">100件</option>
+              </select>
+            </div>
+
+          </div>
+
+          <label style="display:flex;align-items:center;gap:8px">
+            <input id="oaOnly" type="checkbox"
+              style="width:auto">
+            オープンアクセス論文のみ（OpenAlex）
+          </label>
+
+        </form>
+
+        <div class="actions" style="margin-top:12px">
+          <button onclick="searchLatest()">新着論文を検索</button>
+          <button onclick="saveSearchSettings()">検索条件を保存</button>
+          <button onclick="restoreSearchSettings()">保存条件を復元</button>
+        </div>
+
+        <div id="status" class="status"></div>
+        <div id="warning" class="notice" hidden></div>
+
+      </div>
+
+      <div class="tabs">
+        <button id="resultsTab" class="tab active"
+          onclick="switchView('results')">
+          検索結果
+        </button>
+        <button id="favoritesTab" class="tab"
+          onclick="switchView('favorites')">
+          ★ 保存した論文
+        </button>
+      </div>
+
+      <div class="toolbar">
+        <div id="displayCount" class="small">
+          研究テーマを入力してください
+        </div>
+        <div class="actions">
+          <button onclick="exportCSV(false)">
+            表示中の論文をCSV出力
+          </button>
+          <button onclick="exportCSV(true)">
+            保存論文をCSV出力
+          </button>
+        </div>
+      </div>
+
+      <div id="results"></div>
+
+    </main>
+  </div>
+</div>
+
+<div id="toast" role="status"></div>
+
+<footer>
+  Education Research Navigator<br>
+  Data sources: OpenAlex / CiNii Research<br>
+  抄録の抜粋はAIによる精読・評価を代替するものではありません。<br>
+  引用・研究利用の際は必ず原著論文をご確認ください。
+</footer>
+
+<script>
+"use strict";
+
+/* =========================
+   研究分野・検索キーワード
+========================= */
+
+const categories = [
+  {
+    name: "生徒指導",
+    ja: "生徒指導",
+    en: "student guidance"
+  },
+  {
+    name: "教育相談",
+    ja: "教育相談",
+    en: "school counseling"
+  },
+  {
+    name: "不登校",
+    ja: "不登校",
+    en: "school refusal"
+  },
+  {
+    name: "いじめ",
+    ja: "学校 いじめ",
+    en: "school bullying"
+  },
+  {
+    name: "ストレスマネジメント教育",
+    ja: "ストレスマネジメント教育",
+    en: "school stress management intervention"
+  },
+  {
+    name: "ストレッサー・ストレス反応",
+    ja: "中学生 ストレッサー ストレス反応",
+    en: "adolescent school stressors stress responses"
+  },
+  {
+    name: "コーピング",
+    ja: "中学生 コーピング",
+    en: "adolescent coping strategies"
+  },
+  {
+    name: "援助希求",
+    ja: "援助希求",
+    en: "adolescent help seeking"
+  },
+  {
+    name: "SOSの出し方教育",
+    ja: "SOSの出し方教育",
+    en: "school suicide prevention help seeking education"
+  },
+  {
+    name: "学校適応・学校不適応",
+    ja: "学校適応 学校不適応",
+    en: "school adjustment adolescents"
+  },
+  {
+    name: "学校メンタルヘルス",
+    ja: "学校 メンタルヘルス",
+    en: "school mental health"
+  },
+  {
+    name: "自殺予防教育",
+    ja: "自殺予防教育",
+    en: "school suicide prevention education"
+  },
+  {
+    name: "レジリエンス",
+    ja: "児童生徒 レジリエンス",
+    en: "student resilience"
+  },
+  {
+    name: "ウェルビーイング",
+    ja: "学校 ウェルビーイング",
+    en: "student wellbeing"
+  },
+  {
+    name: "教師のメンタルヘルス",
+    ja: "教師 メンタルヘルス",
+    en: "teacher mental health"
+  },
+  {
+    name: "教師のエンパワメント",
+    ja: "教師 エンパワメント",
+    en: "teacher empowerment"
+  },
+  {
+    name: "幼保小接続",
+    ja: "幼保小接続",
+    en: "transition preschool primary school"
+  },
+  {
+    name: "特別支援教育・通級指導",
+    ja: "特別支援教育 通級",
+    en: "special education resource room"
+  },
+  {
+    name: "認知行動療法",
+    ja: "学校 認知行動療法",
+    en: "school cognitive behavioral intervention"
+  },
+  {
+    name: "マインドフルネス",
+    ja: "学校 マインドフルネス",
+    en: "school mindfulness intervention"
+  },
+  {
+    name: "心理尺度・尺度開発",
+    ja: "中学生 心理尺度 開発",
+    en: "adolescent psychological scale validation"
+  },
+  {
+    name: "予防的・開発的生徒指導",
+    ja: "予防的 開発的 生徒指導",
+    en: "school universal prevention intervention"
+  }
+];
+
+const $ = id => document.getElementById(id);
+
+const currentYear = new Date().getFullYear();
+$("toYear").value = currentYear;
+
+let results = [];
+let currentView = "results";
+let busy = false;
+let activeCategory = null;
+let refreshTimer = null;
+let toastTimer = null;
+
+/* =========================
+   ローカル保存
+========================= */
+
+function loadStorage(key, fallback) {
+  try {
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function saveStorage(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch {
+    showToast("ブラウザへの保存に失敗しました");
+    return false;
+  }
+}
+
+let favorites = loadStorage("ern-favorites", []);
+let notes = loadStorage("ern-notes", {});
+let savedTopics = loadStorage("ern-topics", [
+  "ストレスマネジメント教育 中学生",
+  "援助希求 中学生",
+  "不登校 支援",
+  "ストレッサー 心理尺度",
+  "幼保小接続"
+]);
+
+/* =========================
+   安全な画面表示
+========================= */
+
+function escapeHTML(value = "") {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function safeURL(value) {
+  try {
+    const url = new URL(value);
+    return ["http:", "https:"].includes(url.protocol)
+      ? url.href : "";
+  } catch {
+    return "";
+  }
+}
+
+function showToast(message) {
+  $("toast").textContent = message;
+  $("toast").style.display = "block";
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    $("toast").style.display = "none";
+  }, 2800);
+}
+
+function makeButton(label, action, className = "") {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.textContent = label;
+  button.className = className;
+  button.addEventListener("click", action);
+  return button;
+}
+
+/* =========================
+   研究分野の表示
+========================= */
+
+function renderCategories() {
+  const area = $("categories");
+  area.replaceChildren();
+
+  categories.forEach(category => {
+    const button = makeButton(
+      category.name,
+      () => {
+        if (busy) return;
+
+        activeCategory = category;
+        $("keyword").value = category.ja;
+        renderCategories();
+        searchPapers();
+      },
+      "category" +
+        (activeCategory === category ? " active" : "")
+    );
+
+    area.appendChild(button);
+  });
+}
+
+$("keyword").addEventListener("input", () => {
+  activeCategory = null;
+  renderCategories();
+  updateExternalLinks();
+});
+
+/* =========================
+   登録研究テーマ
+========================= */
+
+function renderTopics() {
+  const area = $("savedTopics");
+  area.replaceChildren();
+
+  savedTopics.forEach((topic, index) => {
+    const row = document.createElement("div");
+    row.className = "saved-item";
+
+    row.appendChild(makeButton(topic, () => {
+      if (busy) return;
+
+      activeCategory = null;
+      $("keyword").value = topic;
+      renderCategories();
+      searchPapers();
+    }));
+
+    row.appendChild(makeButton("×", () => {
+      savedTopics.splice(index, 1);
+      saveStorage("ern-topics", savedTopics);
+      renderTopics();
+    }));
+
+    area.appendChild(row);
+  });
+}
+
+function addTopic() {
+  const value = $("customTopic").value.trim();
+
+  if (!value) return;
+
+  if (savedTopics.includes(value)) {
+    showToast("すでに登録されています");
+    return;
+  }
+
+  savedTopics.push(value);
+  saveStorage("ern-topics", savedTopics);
+  $("customTopic").value = "";
+  renderTopics();
+  showToast("研究テーマを登録しました");
+}
+
+/* =========================
+   外部データベースへのリンク
+========================= */
+
+function updateExternalLinks() {
+  const keyword = encodeURIComponent($("keyword").value.trim());
+
+  $("ciniiLink").href =
+    "https://cir.nii.ac.jp/articles?q=" + keyword;
+
+  $("jstageLink").href =
+    "https://www.jstage.jst.go.jp/result/global/-char/ja?globalSearchKey="
+    + keyword;
+
+  $("scholarLink").href =
+    "https://scholar.google.com/scholar?q=" + keyword;
+
+  $("ericLink").href =
+    "https://eric.ed.gov/?q=" + keyword;
+
+  $("pubmedLink").href =
+    "https://pubmed.ncbi.nlm.nih.gov/?term=" + keyword;
+}
+
+/* =========================
+   API通信
+========================= */
+
+async function fetchJSON(url) {
+  const controller = new AbortController();
+
+  const timeout = setTimeout(
+    () => controller.abort(), 25000
+  );
+
+  try {
+    const response = await fetch(url, {
+      signal: controller.signal
+    });
+
+    if (!response.ok) {
+      throw new Error("HTTP " + response.status);
+    }
+
+    return await response.json();
+
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+/* =========================
+   OpenAlex 抄録復元
+========================= */
+
+function restoreAbstract(index) {
+  if (!index || typeof index !== "object") return "";
+
+  const words = [];
+
+  for (const [word, positions] of Object.entries(index)) {
+    if (!Array.isArray(positions)) continue;
+
+    positions.forEach(position => {
+      if (Number.isInteger(position) &&
+          position >= 0 && position < 100000) {
+        words[position] = word;
+      }
+    });
+  }
+
+  return words.join(" ").replace(/\s+/g, " ").trim();
+}
+
+/* =========================
+   OpenAlex 論文検索
+========================= */
+
+async function searchOpenAlex(options) {
+  const params = new URLSearchParams();
+
+  params.set("search", options.openalexQuery);
+  params.set("per_page", options.limit);
+
+  const filters = [
+    "type:article|review",
+    "from_publication_date:" + options.from + "-01-01",
+    "to_publication_date:" + options.to + "-12-31"
+  ];
+
+  if (options.language !== "all") {
+    filters.push("language:" + options.language);
+  }
+
+  if (options.oaOnly) {
+    filters.push("is_oa:true");
+  }
+
+  params.set("filter", filters.join(","));
+
+  if (options.sort === "newest") {
+    params.set("sort", "publication_date:desc");
+  } else if (options.sort === "citations") {
+    params.set("sort", "cited_by_count:desc");
+  }
+
+  if ($("openalexKey").value.trim()) {
+    params.set("api_key", $("openalexKey").value.trim());
+  }
+
+  params.set("select", [
+    "id",
+    "doi",
+    "title",
+    "authorships",
+    "publication_year",
+    "publication_date",
+    "primary_location",
+    "best_oa_location",
+    "open_access",
+    "abstract_inverted_index",
+    "cited_by_count",
+    "language",
+    "type",
+    "biblio",
+    "is_retracted"
+  ].join(","));
+
+  const data = await fetchJSON(
+    "https://api.openalex.org/works?" + params
+  );
+
+  return (data.results || []).map(work => {
+    const location = work.primary_location || {};
+    const oa = work.best_oa_location || {};
+
+    return {
+      id: work.id,
+      title: work.title || "タイトル不明",
+      authors: (work.authorships || []).map(
+        item => item.author?.display_name || ""
+      ).filter(Boolean),
+      year: work.publication_year || "",
+      date: work.publication_date || "",
+      journal: location.source?.display_name || "",
+      abstract: restoreAbstract(
+        work.abstract_inverted_index
+      ),
+      doi: work.doi || "",
+      url: work.doi || location.landing_page_url || work.id,
+      pdf: oa.pdf_url || location.pdf_url || "",
+      citations: work.cited_by_count ?? null,
+      oa: work.open_access?.is_oa === true,
+      language: work.language || "",
+      type: work.type || "",
+      volume: work.biblio?.volume || "",
+      issue: work.biblio?.issue || "",
+      pages: [
+        work.biblio?.first_page,
+        work.biblio?.last_page
+      ].filter(Boolean).join("–"),
+      retracted: work.is_retracted === true,
+      source: "OpenAlex"
+    };
+  });
+}
+
+/* =========================
+   CiNii Research 論文検索
+========================= */
+
+function readValue(value) {
+  if (Array.isArray(value)) {
+    return value.map(readValue).filter(Boolean).join(" / ");
+  }
+
+  if (value && typeof value === "object") {
+    return value["@value"] ||
+      value["@id"] ||
+      value.name ||
+      value.title || "";
+  }
+
+  return value == null ? "" : String(value);
+}
+
+async function searchCiNii(options) {
+  const appid = $("ciniiKey").value.trim();
+
+  if (!appid) {
+    throw new Error(
+      "CiNiiの検索にはApplication IDが必要です。" +
+      "左側のAPI設定から入力してください。"
+    );
+  }
+
+  const params = new URLSearchParams({
+    q: options.keyword,
+    appid: appid,
+    format: "json",
+    count: options.limit,
+    from: options.from,
+    until: options.to,
+    sortorder: options.sort === "newest" ? "0" :
+      options.sort === "citations" ? "10" : "4"
+  });
+
+  const data = await fetchJSON(
+    "https://cir.nii.ac.jp/opensearch/articles?" + params
+  );
+
+  return (data.items || []).map(item => {
+    const authors = item["dc:creator"] || [];
+    const identifiers = item["dc:identifier"] || [];
+    const identifierText = JSON.stringify(identifiers);
+
+    const doiMatch = identifierText.match(
+      /10\.\d{4,9}\/[-._;()/:a-zA-Z0-9]+/
+    );
+
+    const doi = doiMatch
+      ? "https://doi.org/" + doiMatch[0] : "";
+
+    const date = readValue(item["prism:publicationDate"]);
+    const pageURL = readValue(item.link || item["@id"]);
+
+    const abstract =
+      readValue(item.abstractLicenseFlag) === "disallow"
+      ? ""
+      : readValue(item.description);
+
+    return {
+      id: pageURL || doi ||
+        "cinii:" + readValue(item.title) + ":" + date,
+      title: readValue(item.title) || "タイトル不明",
+      authors: (Array.isArray(authors) ? authors : [authors])
+        .map(readValue).filter(Boolean),
+      year: date.slice(0, 4),
+      date: date,
+      journal: readValue(item["prism:publicationName"]),
+      abstract: abstract,
+      doi: doi,
+      url: pageURL || doi,
+      pdf: "",
+      citations: null,
+      oa: null,
+      language: "",
+      type: readValue(item["dc:type"]),
+      volume: readValue(item["prism:volume"]),
+      issue: readValue(item["prism:number"]),
+      pages: readValue(item["prism:pageRange"]) ||
+        [
+          readValue(item["prism:startingPage"]),
+          readValue(item["prism:endingPage"])
+        ].filter(Boolean).join("–"),
+      retracted: null,
+      source: "CiNii Research"
+    };
+  });
+}
+
+/* =========================
+   重複論文の除去
+========================= */
+
+function normalizeTitle(title) {
+  return String(title || "")
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/[\p{P}\p{Z}\s]/gu, "");
+}
+
+function paperKey(paper) {
+  if (paper.doi) {
+    return "doi:" + paper.doi
+      .replace(/^https?:\/\/(dx\.)?doi\.org\//i, "")
+      .toLowerCase();
+  }
+
+  return "title:" + normalizeTitle(paper.title)
+    + ":" + (paper.year || "");
+}
+
+function samePaper(a, b) {
+  if (a.doi && b.doi) {
+    return paperKey(a) === paperKey(b);
+  }
+
+  return normalizeTitle(a.title) === normalizeTitle(b.title)
+    && String(a.year) === String(b.year);
+}
+
+function mergePapers(papers) {
+  const merged = [];
+
+  papers.forEach(paper => {
+    const previous = merged.find(
+      item => samePaper(item, paper)
+    );
+
+    if (!previous) {
+      merged.push({...paper});
+      return;
+    }
+
+    if (!previous.abstract && paper.abstract) {
+      previous.abstract = paper.abstract;
+    }
+
+    if (!previous.doi) previous.doi = paper.doi;
+    if (!previous.pdf) previous.pdf = paper.pdf;
+    if (!previous.journal) previous.journal = paper.journal;
+
+    if (previous.citations == null) {
+      previous.citations = paper.citations;
+    }
+
+    if (previous.oa == null) previous.oa = paper.oa;
+    if (paper.oa === true) previous.oa = true;
+    if (paper.retracted === true) previous.retracted = true;
+
+    if (!previous.source.includes(paper.source)) {
+      previous.source += " / " + paper.source;
+    }
+  });
+
+  return merged;
+}
+
+/* =========================
+   検索実行
+========================= */
+
+$("searchForm").addEventListener("submit", event => {
+  event.preventDefault();
+  searchPapers();
+});
+
+async function searchPapers() {
+  if (busy) return;
+
+  const keyword = $("keyword").value.trim();
+
+  if (!keyword) {
+    showToast("検索キーワードを入力してください");
+    return;
+  }
+
+  const options = {
+    keyword,
+    openalexQuery: keyword,
+    source: $("source").value,
+    language: $("language").value,
+    sort: $("sort").value,
+    from: Number($("fromYear").value || 1900),
+    to: Number($("toYear").value || currentYear),
+    limit: $("limit").value,
+    oaOnly: $("oaOnly").checked
+  };
+
+  if (activeCategory) {
+    options.openalexQuery =
+      options.language === "ja"
+      ? activeCategory.ja
+      : options.language === "en"
+      ? activeCategory.en
+      : '"' + activeCategory.ja + '" OR (' +
+        activeCategory.en + ')';
+  }
+
+  if (options.from > options.to ||
+      options.from < 1800 || options.to > 2100) {
+    showToast("発行年の範囲を確認してください");
+    return;
+  }
+
+  busy = true;
+  $("searchButton").disabled = true;
+  $("searchButton").textContent = "検索中…";
+  $("warning").hidden = true;
+  $("status").textContent = "論文データベースに問い合わせています。";
+
+  currentView = "results";
+  updateTabs();
+  updateExternalLinks();
+
+  $("results").innerHTML = `
+    <div class="empty">
+      <div class="loading"></div>
+      研究論文を検索しています
+    </div>
+  `;
+
+  const tasks = [];
+
+  if (["both", "openalex"].includes(options.source)) {
+    tasks.push({
+      name: "OpenAlex",
+      promise: searchOpenAlex(options)
+    });
+  }
+
+  if (["both", "cinii"].includes(options.source)) {
+    tasks.push({
+      name: "CiNii Research",
+      promise: searchCiNii(options)
+    });
+  }
+
+  try {
+    const responses = await Promise.allSettled(
+      tasks.map(task => task.promise)
+    );
+
+    const allPapers = [];
+    const warnings = [];
+    const counts = [];
+
+    responses.forEach((response, index) => {
+      const name = tasks[index].name;
+
+      if (response.status === "fulfilled") {
+        allPapers.push(...response.value);
+        counts.push(name + "：" + response.value.length + "件");
+      } else {
+        warnings.push(
+          name + "：取得できませんでした。\n" +
+          (response.reason?.message || "通信エラー")
+        );
+      }
+    });
+
+    if (
+      ["both", "cinii"].includes(options.source) &&
+      (options.language !== "all" || options.oaOnly)
+    ) {
+      warnings.push(
+        "言語・オープンアクセスの絞り込みは" +
+        "CiNiiの取得結果には適用されません。"
+      );
+    }
+
+    results = mergePapers(allPapers);
+
+    if (options.sort === "newest") {
+      results.sort((a, b) =>
+        String(b.date || b.year)
+          .localeCompare(String(a.date || a.year))
+      );
+    } else if (options.sort === "citations") {
+      results.sort((a, b) =>
+        (b.citations ?? -1) - (a.citations ?? -1)
+      );
+    }
+
+    if (warnings.length) {
+      $("warning").textContent =
+        warnings.join("\n\n") +
+        "\n\n取得できない場合は左側の外部検索リンクもご利用ください。";
+      $("warning").hidden = false;
+    }
+
+    $("status").textContent =
+      counts.join(" / ") +
+      "\n重複整理後：" + results.length + "件" +
+      "\n最終検索：" + new Date().toLocaleString("ja-JP");
+
+    if (options.sort === "relevance" &&
+        options.source === "both") {
+      $("status").textContent +=
+        "\n関連度はデータベースごとの順序です。";
+    }
+
+    currentView = "results";
+    renderResults();
+
+  } catch (error) {
+    $("warning").textContent = error.message;
+    $("warning").hidden = false;
+    $("status").textContent = "検索に失敗しました。";
+    results = [];
+    renderResults();
+
+  } finally {
+    busy = false;
+    $("searchButton").disabled = false;
+    $("searchButton").textContent = "検索";
+  }
+}
+
+/* =========================
+   新着論文検索
+========================= */
+
+function searchLatest() {
+  $("sort").value = "newest";
+  $("fromYear").value = currentYear - 1;
+  $("toYear").value = currentYear;
+  searchPapers();
+}
+
+/* =========================
+   抄録の抜粋
+   AIによる生成要約ではない
+========================= */
+
+function extractSummary(abstract) {
+  if (!abstract || !abstract.trim()) {
+    return "抄録を取得できませんでした。" +
+      "原著論文・データベースでご確認ください。";
+  }
+
+  const sentences = abstract.match(
+    /[^。！？.!?\n]+[。！？.!?]?/g
+  ) || [abstract];
+
+  let excerpt = sentences
+    .slice(0, 4)
+    .join("")
+    .trim();
+
+  if (excerpt.length > 850) {
+    excerpt = excerpt.slice(0, 850) + "…";
+  } else if (excerpt.length < abstract.length) {
+    excerpt += " …";
+  }
+
+  return excerpt;
+}
+
+/* =========================
+   明示的な抄録見出しの抽出
+   推測による研究結果は生成しない
+========================= */
+
+function extractSections(abstract) {
+  const sections = {
+    purpose: "",
+    method: "",
+    result: "",
+    conclusion: "",
+    limitation: ""
+  };
+
+  if (!abstract) return sections;
+
+  const patterns = [
+    {
+      key: "purpose",
+      regex: /(?:^|\s)(目的|研究目的|Background|Objectives?|Aims?|Purpose)\s*[:：]/gi
+    },
+    {
+      key: "method",
+      regex: /(?:^|\s)(方法|研究方法|対象と方法|Methods?|Methodology)\s*[:：]/gi
+    },
+    {
+      key: "result",
+      regex: /(?:^|\s)(結果|研究結果|Results?|Findings)\s*[:：]/gi
+    },
+    {
+      key: "conclusion",
+      regex: /(?:^|\s)(結論|考察|Conclusions?|Discussion)\s*[:：]/gi
+    },
+    {
+      key: "limitation",
+      regex: /(?:^|\s)(限界|研究の限界|今後の課題|Limitations?)\s*[:：]/gi
+    }
+  ];
+
+  const matches = [];
+
+  patterns.forEach(pattern => {
+    for (const match of abstract.matchAll(pattern.regex)) {
+      matches.push({
+        key: pattern.key,
+        start: match.index,
+        end: match.index + match[0].length
+      });
+    }
+  });
+
+  matches.sort((a, b) => a.start - b.start);
+
+  matches.forEach((match, i) => {
+    const end = matches[i + 1]?.start ?? abstract.length;
+    const section = abstract.slice(match.end, end).trim();
+
+    sections[match.key] +=
+      (sections[match.key] ? "\n" : "") + section;
+  });
+
+  return sections;
+}
+
+/* =========================
+   ブラウザ内蔵翻訳
+========================= */
+
+async function translateAbstract(paper, output, button) {
+  if (!paper.abstract) {
+    showToast("翻訳できる抄録がありません");
+    return;
+  }
+
+  if (paper.language === "ja") {
+    output.textContent = paper.abstract;
+    output.hidden = false;
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "翻訳中…";
+
+  try {
+    if (!("Translator" in window)) {
+      throw new Error(
+        "このブラウザは内蔵翻訳APIに対応していません。" +
+        "ブラウザのページ翻訳機能をご利用ください。"
+      );
+    }
+
+    const sourceLanguage = paper.language || "en";
+
+    if (sourceLanguage === "ja") {
+      output.textContent = paper.abstract;
+      output.hidden = false;
+      return;
+    }
+
+    const options = {
+      sourceLanguage,
+      targetLanguage: "ja"
+    };
+
+    const availability =
+      await window.Translator.availability(options);
+
+    if (availability === "unavailable") {
+      throw new Error("この言語の翻訳には対応していません。");
+    }
+
+    const translator =
+      await window.Translator.create(options);
+
+    try {
+      const translated =
+        await translator.translate(paper.abstract);
+
+      output.textContent =
+        "【抄録の機械翻訳】\n" + translated;
+
+      output.hidden = false;
+
+    } finally {
+      translator.destroy?.();
+    }
+
+  } catch (error) {
+    output.textContent = error.message;
+    output.hidden = false;
+
+  } finally {
+    button.disabled = false;
+    button.textContent = "抄録を日本語に翻訳";
+  }
+}
+
+/* =========================
+   引用文献形式
+========================= */
+
+function formatAuthor(name, language) {
+  if (
+    language === "ja" ||
+    /[\u3040-\u30ff\u3400-\u9fff]/.test(name)
+  ) {
+    return name;
+  }
+
+  const parts = name.trim().split(/\s+/);
+
+  if (parts.length < 2) return name;
+
+  const surname = parts.pop();
+  const initials = parts.map(
+    part => part.charAt(0).toUpperCase() + "."
+  ).join(" ");
+
+  return surname + ", " + initials;
+}
+
+function formatCitation(paper) {
+  let authors = paper.authors.map(
+    name => formatAuthor(name, paper.language)
+  );
+
+  if (authors.length > 20) {
+    authors = [
+      ...authors.slice(0, 19),
+      "…",
+      authors[authors.length - 1]
+    ];
+  }
+
+  let authorText = authors.join(", ");
+
+  if (authors.length >= 2 && authors.length <= 20) {
+    authorText =
+      authors.slice(0, -1).join(", ") +
+      ", & " + authors[authors.length - 1];
+  }
+
+  const journal = paper.journal || "";
+  const volume = paper.volume
+    ? ", " + paper.volume : "";
+  const issue = paper.issue
+    ? "(" + paper.issue + ")" : "";
+  const pages = paper.pages
+    ? ", " + paper.pages : "";
+
+  return [
+    authorText ? authorText + "." : "",
+    "(" + (paper.year || "n.d.") + ").",
+    paper.title + ".",
+    journal
+      ? journal + volume + issue + pages + "."
+      : "",
+    paper.doi || paper.url || ""
+  ].filter(Boolean).join(" ");
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast("クリップボードにコピーしました");
+  } catch {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    const success = document.execCommand("copy");
+    textarea.remove();
+
+    showToast(success
+      ? "コピーしました"
+      : "コピーできませんでした");
+  }
+}
+
+/* =========================
+   お気に入り
+========================= */
+
+function isFavorite(paper) {
+  return favorites.some(item => samePaper(item, paper));
+}
+
+function toggleFavorite(paper) {
+  const index = favorites.findIndex(
+    item => samePaper(item, paper)
+  );
+
+  if (index >= 0) {
+    favorites.splice(index, 1);
+    showToast("保存リストから削除しました");
+  } else {
+    favorites.push({
+      ...paper,
+      savedAt: new Date().toISOString()
+    });
+    showToast("論文を保存しました");
+  }
+
+  saveStorage("ern-favorites", favorites);
+  updateStats();
+
+  if (currentView === "favorites") {
+    renderResults();
+  }
+}
+
+/* =========================
+   AI精読用プロンプト
+========================= */
+
+function makeAnalysisPrompt(paper) {
+  return [
+    "以下の研究論文について、提供された情報だけに基づき、",
+    "研究者向けに日本語で整理してください。",
+    "",
+    "1. 研究目的",
+    "2. 理論的背景",
+    "3. 研究対象・研究方法",
+    "4. 主な研究結果",
+    "5. 研究の限界",
+    "6. 今後の課題",
+    "7. 学校教育・生徒指導・教育相談への示唆",
+    "8. ストレスマネジメント教育への活用可能性",
+    "",
+    "抄録だけでは判断できない内容は、",
+    "「本文確認が必要」と明記してください。",
+    "対象者数、統計量、効果量、引用文献などを",
+    "推測・創作しないでください。",
+    "",
+    "論文タイトル：" + paper.title,
+    "著者：" + paper.authors.join("、"),
+    "発行年：" + paper.year,
+    "掲載誌：" + paper.journal,
+    "原典：" + paper.url,
+    "",
+    "抄録：",
+    paper.abstract || "抄録未取得。本文の提供が必要です。"
+  ].join("\n");
+}
+
+/* =========================
+   論文カードの描画
+========================= */
+
+function renderPaper(paper, index) {
+  const article = document.createElement("article");
+  article.className = "paper";
+
+  const url = safeURL(paper.url);
+  const pdf = safeURL(paper.pdf);
+  const summary = extractSummary(paper.abstract);
+  const sections = extractSections(paper.abstract);
+
+  const titleHTML = url
+    ? `<a href="${escapeHTML(url)}"
+        target="_blank" rel="noopener noreferrer">
+        ${escapeHTML(paper.title)}
+       </a>`
+    : escapeHTML(paper.title);
+
+  article.innerHTML = `
+    <div>
+      <span class="tag">${escapeHTML(paper.source)}</span>
+      <span class="tag">${escapeHTML(paper.year || "年不明")}</span>
+
+      ${paper.oa
+        ? '<span class="tag oa">Open Access</span>'
+        : ""}
+
+      ${paper.citations != null
+        ? '<span class="tag">被引用 ' +
+          escapeHTML(paper.citations) + '件</span>'
+        : ""}
+
+      ${paper.retracted
+        ? '<span class="tag">撤回論文・要注意</span>'
+        : ""}
+    </div>
+
+    <h2>${index + 1}. ${titleHTML}</h2>
+
+    <div class="paper-meta">
+      著者：
+      ${escapeHTML(paper.authors.join("、") || "情報なし")}
+      <br>
+      掲載誌：
+      ${escapeHTML(paper.journal || "情報なし")}
+      <br>
+      DOI：
+      ${escapeHTML(paper.doi || "情報なし")}
+    </div>
+
+    <div class="summary">
+      <div class="section-label">ABSTRACT EXCERPT</div>
+      <h3>抄録の概要（冒頭抜粋）</h3>
+      <p>${escapeHTML(summary)}</p>
+      <div class="small">
+        出典：${escapeHTML(paper.source)}の抄録データ。
+        AIによる生成要約ではありません。
+      </div>
+    </div>
+
+    <details>
+      <summary>研究目的・方法・結果・限界を確認</summary>
+
+      ${[
+        ["研究目的", sections.purpose],
+        ["研究対象・方法", sections.method],
+        ["主な研究結果", sections.result],
+        ["結論・考察", sections.conclusion],
+        ["研究の限界・課題", sections.limitation]
+      ].map(([label, content]) => `
+        <div style="margin-top:14px">
+          <strong>${label}</strong>
+          <p>${escapeHTML(content ||
+            "明示的な抄録見出しからは抽出できません。原文をご確認ください。")}</p>
+        </div>
+      `).join("")}
+
+      <div class="small">
+        抄録に明示された見出しから機械的に抽出しています。
+      </div>
+    </details>
+
+    <details>
+      <summary>抄録全文を表示</summary>
+      <p>${escapeHTML(paper.abstract || "抄録未取得")}</p>
+    </details>
+
+    <div class="translation notice" hidden></div>
+
+    <div class="actions paper-actions"
+      style="margin-top:18px"></div>
+
+    <details class="notes">
+      <summary>研究メモ・自分の研究との関連性</summary>
+      <textarea rows="4"
+        placeholder="研究への活用可能性、引用したい内容、疑問点などを記録"></textarea>
+      <button class="save-note" style="margin-top:8px">
+        メモを保存
+      </button>
+    </details>
+
+    <details>
+      <summary>引用文献形式（APA風・確認用）</summary>
+      <p>${escapeHTML(formatCitation(paper))}</p>
+      <div class="small">
+        著者名や巻号、ページ、APA第7版への適合性は原典で確認してください。
+      </div>
+    </details>
+  `;
+
+  const actions = article.querySelector(".paper-actions");
+
+  if (url) {
+    const link = document.createElement("a");
+    link.className = "link-button";
+    link.textContent = "原著論文 ↗";
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    actions.appendChild(link);
+  }
+
+  if (pdf) {
+    const link = document.createElement("a");
+    link.className = "link-button";
+    link.textContent = "PDF ↗";
+    link.href = pdf;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    actions.appendChild(link);
+  }
+
+  actions.appendChild(makeButton(
+    "引用文献をコピー",
+    () => copyText(formatCitation(paper))
+  ));
+
+  actions.appendChild(makeButton(
+    "AI精読用プロンプト",
+    () => copyText(makeAnalysisPrompt(paper))
+  ));
+
+  if (paper.abstract && paper.language !== "ja") {
+    const translateButton = makeButton(
+      "抄録を日本語に翻訳",
+      () => translateAbstract(
+        paper,
+        article.querySelector(".translation"),
+        translateButton
+      )
+    );
+
+    actions.appendChild(translateButton);
+  }
+
+  const favoriteButton = makeButton(
+    isFavorite(paper) ? "★ 保存済み" : "☆ 論文を保存",
+    () => {
+      toggleFavorite(paper);
+
+      favoriteButton.textContent =
+        isFavorite(paper) ? "★ 保存済み" : "☆ 論文を保存";
+
+      favoriteButton.classList.toggle(
+        "saved", isFavorite(paper)
+      );
+    },
+    isFavorite(paper) ? "saved" : ""
+  );
+
+  actions.appendChild(favoriteButton);
+
+  const memo = article.querySelector("textarea");
+  const key = paperKey(paper);
+
+  memo.value = notes[key] || "";
+
+  article.querySelector(".save-note")
+    .addEventListener("click", () => {
+      notes[key] = memo.value;
+      if (saveStorage("ern-notes", notes)) {
+        showToast("研究メモを保存しました");
+      }
+    });
+
+  return article;
+}
+
+/* =========================
+   検索結果・保存論文の表示
+========================= */
+
+function updateStats() {
+  $("resultCount").textContent = results.length;
+  $("favoriteCount").textContent = favorites.length;
+  $("oaCount").textContent = results.filter(
+    paper => paper.oa === true
+  ).length;
+}
+
+function updateTabs() {
+  $("resultsTab").classList.toggle(
+    "active", currentView === "results"
+  );
+
+  $("favoritesTab").classList.toggle(
+    "active", currentView === "favorites"
+  );
+}
+
+function switchView(view) {
+  if (busy) return;
+  currentView = view;
+  renderResults();
+}
+
+function renderResults() {
+  updateTabs();
+  updateStats();
+
+  const list = currentView === "favorites"
+    ? favorites : results;
+
+  const area = $("results");
+  area.replaceChildren();
+
+  $("displayCount").textContent =
+    list.length + "件の論文を表示";
+
+  if (!list.length) {
+    area.innerHTML = `
+      <div class="empty">
+        <div style="font-size:40px">📚</div>
+        <h3>${currentView === "favorites"
+          ? "保存した論文はまだありません"
+          : "研究論文を探してみましょう"}</h3>
+        <p>${currentView === "favorites"
+          ? "気になる論文を保存するとここに表示されます。"
+          : "キーワードを入力するか、左側の研究分野を選択してください。"}</p>
+      </div>
+    `;
+    return;
+  }
+
+  list.forEach((paper, index) => {
+    area.appendChild(renderPaper(paper, index));
+  });
+}
+
+/* =========================
+   CSV出力（Excel対応）
+========================= */
+
+function csvCell(value) {
+  let text = String(value ?? "");
+
+  // CSV数式インジェクション対策
+  if (/^[\s]*[=+\-@\t\r]/.test(text)) {
+    text = "'" + text;
+  }
+
+  return '"' + text.replaceAll('"', '""') + '"';
+}
+
+function exportCSV(savedOnly) {
+  const papers = savedOnly
+    ? favorites
+    : currentView === "favorites"
+    ? favorites : results;
+
+  if (!papers.length) {
+    showToast("出力する論文がありません");
+    return;
+  }
+
+  const headers = [
+    "論文タイトル",
+    "著者",
+    "発行年",
+    "掲載誌",
+    "巻",
+    "号",
+    "ページ",
+    "データベース",
+    "被引用数",
+    "オープンアクセス",
+    "論文URL",
+    "DOI",
+    "PDF",
+    "抄録",
+    "抄録抜粋",
+    "研究目的",
+    "研究方法",
+    "研究結果",
+    "結論",
+    "研究の限界",
+    "引用文献形式",
+    "研究メモ"
+  ];
+
+  const rows = papers.map(paper => {
+    const sections = extractSections(paper.abstract);
+
+    return [
+      paper.title,
+      paper.authors.join("、"),
+      paper.year,
+      paper.journal,
+      paper.volume,
+      paper.issue,
+      paper.pages,
+      paper.source,
+      paper.citations ?? "",
+      paper.oa === true ? "Yes" :
+        paper.oa === false ? "No" : "不明",
+      paper.url,
+      paper.doi,
+      paper.pdf,
+      paper.abstract,
+      extractSummary(paper.abstract),
+      sections.purpose,
+      sections.method,
+      sections.result,
+      sections.conclusion,
+      sections.limitation,
+      formatCitation(paper),
+      notes[paperKey(paper)] || ""
+    ];
+  });
+
+  const csv = [headers, ...rows]
+    .map(row => row.map(csvCell).join(","))
+    .join("\r\n");
+
+  // UTF-8 BOM付き：Excelの日本語文字化け対策
+  const blob = new Blob(
+    ["\uFEFF" + csv],
+    {type: "text/csv;charset=utf-8;"}
+  );
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download =
+    "研究論文リスト_" +
+    new Date().toISOString().slice(0, 10) +
+    ".csv";
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+  showToast("CSVファイルを出力しました");
+}
+
+/* =========================
+   検索条件の保存・復元
+========================= */
+
+function saveSearchSettings() {
+  const settings = {};
+
+  [
+    "keyword", "source", "language", "sort",
+    "fromYear", "toYear", "limit"
+  ].forEach(id => {
+    settings[id] = $(id).value;
+  });
+
+  settings.oaOnly = $("oaOnly").checked;
+  settings.category = activeCategory?.name || "";
+
+  if (saveStorage("ern-search-settings", settings)) {
+    showToast("検索条件を保存しました");
+  }
+}
+
+function restoreSearchSettings(silent = false) {
+  const settings = loadStorage(
+    "ern-search-settings", null
+  );
+
+  if (!settings) {
+    if (!silent) {
+      showToast("保存された検索条件がありません");
+    }
+    return;
+  }
+
+  [
+    "keyword", "source", "language", "sort",
+    "fromYear", "toYear", "limit"
+  ].forEach(id => {
+    if (settings[id] != null) {
+      $(id).value = settings[id];
+    }
+  });
+
+  $("oaOnly").checked = !!settings.oaOnly;
+
+  activeCategory = categories.find(
+    item => item.name === settings.category
+  ) || null;
+
+  renderCategories();
+  updateExternalLinks();
+
+  if (!silent) {
+    showToast("検索条件を復元しました");
+  }
+}
+
+/* =========================
+   ページ表示中の自動検索
+========================= */
+
+function configureAutoRefresh() {
+  clearInterval(refreshTimer);
+  refreshTimer = null;
+
+  const minutes = Number($("refreshInterval").value);
+
+  if (!minutes) {
+    showToast("自動更新を停止しました");
+    return;
+  }
+
+  refreshTimer = setInterval(() => {
+    if (!busy && $("keyword").value.trim()) {
+      searchPapers();
+    }
+  }, minutes * 60 * 1000);
+
+  showToast(minutes + "分ごとの自動更新を設定しました");
+}
+
+/* =========================
+   初期表示
+========================= */
+
+renderCategories();
+renderTopics();
+restoreSearchSettings(true);
+updateExternalLinks();
+renderResults();
+
+</script>
+</body>
+</html>
